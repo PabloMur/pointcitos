@@ -1,3 +1,5 @@
+import { GoogleButton } from "@/components/ui/GoogleButton";
+
 const LoginPage = () => {
   return (
     <div className="h-[90vh] bg-green-200 flex justify-center items-center">
@@ -6,6 +8,7 @@ const LoginPage = () => {
       </div>
       <div className="w-2/3 flex justify-center items-center text-black">
         Formulario de ingreso
+        <GoogleButton></GoogleButton>
       </div>
     </div>
   );
