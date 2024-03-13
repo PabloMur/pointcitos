@@ -1,8 +1,9 @@
+import Link from "next/link";
 const Logo = () => {
   return (
-    <div>
-      <h2 className="font-bold text-xl">Poincitos ❤️</h2>
-    </div>
+    <Link href={"/"} className="border-2 border-black rounded-lg p-4">
+      <h2 className="font-bold text-xl">Poincitos 🏖️❤️⛰️</h2>
+    </Link>
   );
 };
 

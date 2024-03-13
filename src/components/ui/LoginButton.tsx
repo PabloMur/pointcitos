@@ -1,8 +1,12 @@
+import Link from "next/link";
+
 const LoginButton = () => {
   return (
-    <button className="bg-blue-400 p-4 rounded-lg font-bold text-white">
-      Iniciar Sesión
-    </button>
+    <Link href={"/login"}>
+      <button className="bg-blue-600 p-4 rounded-lg font-bold text-white">
+        Iniciar Sesión
+      </button>
+    </Link>
   );
 };
 

@@ -1,8 +1,11 @@
+import Link from "next/link";
 const SignInButton = () => {
   return (
-    <button className="bg-purple-400 p-4 rounded-lg font-bold text-white">
-      Registrate
-    </button>
+    <Link href={"/signup"}>
+      <button className="bg-black p-4 rounded-lg font-bold text-white">
+        Registrate
+      </button>
+    </Link>
   );
 };
 
