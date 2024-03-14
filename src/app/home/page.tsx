@@ -1,4 +1,6 @@
 import { OptionCard } from "@/components/ui/OptionCard";
+import createImage from "../../../public/create.jpg";
+import invitation from "../../../public/invitation.jpg";
 
 const HomePage = () => {
   return (
@@ -9,12 +11,12 @@ const HomePage = () => {
       </ul>
       <div className="flex justify-center items-center h-full gap-4">
         <OptionCard
-          img=""
+          img={createImage}
           content="Crear un pointer"
           route="/create"
         ></OptionCard>
         <OptionCard
-          img=""
+          img={invitation}
           content="Ingresar a un pointer"
           route="/invitation"
         ></OptionCard>
