@@ -1,6 +1,3 @@
-//aca tiene que estar todos los endpoints encargados del CRUD de los points
-console.log("hola");
-
 import { NextRequest, NextResponse } from "next/server";
 
 export function GET(NextRequest: NextRequest) {

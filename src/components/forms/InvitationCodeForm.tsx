@@ -10,7 +10,7 @@ const InvitationFormCode = () => {
     const code = target.code.value;
     console.log(code);
     alert(`ingresando a al pointeeer ${code}`);
-    goto("/");
+    goto(`/pointer/${code}`);
   };
 
   return (
