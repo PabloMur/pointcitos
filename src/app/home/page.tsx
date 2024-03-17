@@ -1,12 +1,11 @@
 import { OptionCard } from "@/components/ui/OptionCard";
 import createImage from "../../../public/create.jpg";
 import invitation from "../../../public/invitation.jpg";
-import { CategoryButton } from "@/components/ui/CatergoryButton";
 
 const HomePage = () => {
   return (
     <div className="h-[90vh] bg-white text-black flex flex-col">
-      <div className="flex justify-center items-center h-full gap-4">
+      <div className="flex flex-col sm:flex-row justify-center items-center h-full gap-4">
         <OptionCard
           img={createImage}
           content="Crear un pointer"

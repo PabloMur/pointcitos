@@ -6,11 +6,8 @@ const PointerPage = () => {
   return (
     <div className="min-h-[90vh] flex flex-col justify-start items-center bg-white p-4">
       <SectionTitle text="Estos son los Poincitos, esperamos que los disfruten y la pasen lindo!"></SectionTitle>
-      <div className="flex">
-        <p className="w-fit p-4 flex justify-center items-center text-black">
-          Categorias:
-        </p>
-        <ul className="w-full flex justify-center items-center p-4 gap-4 pr-10">
+      <div className="flex flex-col justify-center items-center">
+        <ul className="w-full flex justify-center items-center p-4 gap-4 pr-10 overflow-x-scroll sm:overflow-auto">
           <CategoryButton category={"Comida"}></CategoryButton>
           <CategoryButton category={"Bares"}></CategoryButton>
           <CategoryButton category={"Restaurantes"}></CategoryButton>
