@@ -54,37 +54,46 @@ export async function GET(NextRequest: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
-  const { creator, participants, points } = await req.json();
+  try {
+    const { creator, participants, points } = await req.json();
 
-  const numeroAleatorio = generarNumeroAleatorio().toString();
+    const numeroAleatorio = generarNumeroAleatorio().toString();
 
-  //crear el point en la base de datos
-  // ref a la collection points
-  const ref = firestore.collection("points");
-  //ref a la collection de los shotsCodes
-  const codePoints = firestore.collection("codePoint").doc(numeroAleatorio);
-  //creando el pointer con los datos enviados por el front
-  const pointer = await ref.add({
-    creator,
-    participants,
-    points,
-  });
+    //crear el point en la base de datos
+    // ref a la collection points
+    const ref = firestore.collection("points");
+    //ref a la collection de los shotsCodes
+    const codePoints = firestore.collection("codePoint").doc(numeroAleatorio);
+    //creando el pointer con los datos enviados por el front
+    const pointer = await ref.add({
+      creator,
+      participants,
+      points,
+    });
 
-  //id largo del pointer
-  const pointerLongID = pointer.id;
+    //id largo del pointer
+    const pointerLongID = pointer.id;
 
-  // creando la vinculacion del codigo largo con el corto
-  await codePoints.set({
-    pointerId: pointerLongID,
-  });
+    // creando la vinculacion del codigo largo con el corto
+    await codePoints.set({
+      pointerId: pointerLongID,
+    });
 
-  return NextResponse.json({
-    created: true,
-    shortID: numeroAleatorio,
-    message:
-      "Comparte este código con las personas que quieras invitar al pointer " +
-      numeroAleatorio,
-  });
+    return NextResponse.json({
+      created: true,
+      shortID: numeroAleatorio,
+      message:
+        "Comparte este código con las personas que quieras invitar al pointer " +
+        numeroAleatorio,
+    });
+  } catch (error) {
+    console.error(error);
+
+    return NextResponse.json({
+      message: "Hubo un error al crear el Pointer",
+      error,
+    });
+  }
 }
 
 export function PATCH() {
