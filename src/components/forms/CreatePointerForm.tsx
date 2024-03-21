@@ -5,7 +5,7 @@ import { pointImageBase64Atom } from "@/atoms";
 import { useRecoilValue } from "recoil";
 import { FormEvent } from "react";
 import { useCreatePointer } from "@/hooks";
-import {} from "@/lib/Tools";
+import { cloudinary } from "@/lib/CloundinaryConnection";
 
 const CreatePointerForm = () => {
   const imageBase = useRecoilValue(pointImageBase64Atom);
@@ -14,7 +14,9 @@ const CreatePointerForm = () => {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     alert(imageBase);
-    //const finalImage = await uploadImageOnCloudinary(imageBase, "poincitos");
+    console.log(imageBase);
+    //const finalImageUrl = await cloudinary.uploader.upload(imageBase);
+
     await createPointHook("hola", "como", {
       points: [
         {
@@ -22,7 +24,7 @@ const CreatePointerForm = () => {
           createdBy: "Pablo",
           favorite: false,
           id: 123123,
-          img: "finalImage",
+          img: "https://res.cloudinary.com/nearby-tour/image/upload/v1711043531/frame1_djn0xj.png",
           location: "Mar del Plata, escollera sur",
           name: "Poseidón",
           visited: false,
