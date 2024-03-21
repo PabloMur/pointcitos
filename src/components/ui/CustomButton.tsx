@@ -21,7 +21,7 @@ const CustomButton = ({ text, route, action }: CustomButtonType) => {
   return (
     <button
       onClick={handleClick}
-      className="bg-blue-600 p-4 font-bold text-white rounded-lg w-full"
+      className="bg-blue-600 p-4 font-bold text-white rounded-lg w-fit"
     >
       {text}
     </button>

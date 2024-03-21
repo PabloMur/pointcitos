@@ -1,5 +1,5 @@
 const GoogleButton = () => {
-  return <button>Google Button</button>;
+  return <button>Iniciar Sesión con Google</button>;
 };
 
 export { GoogleButton };

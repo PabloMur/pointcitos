@@ -1,23 +1,14 @@
+import { CustomImput } from "../ui/CustomInput";
 const CreatePointerForm = () => {
   return (
-    <form className="flex flex-col justify-center items-center border rounded-lg p-2 w-full text-black max-w-[450px]">
+    <form className="flex flex-col justify-center items-center border-2 border-black rounded-lg p-2 w-full text-black max-w-[450px]">
       <label className="w-full flex flex-col justify-center items-center gap-2 p-2">
         <p className="w-full">Cual es el nombre del lugar?:</p>
-        <input
-          type="text"
-          name=""
-          id=""
-          className="border w-full rounded-lg p-2"
-        />
+        <CustomImput></CustomImput>
       </label>
       <label className="w-full flex flex-col justify-center items-center gap-2 p-2">
         <p className="w-full">En que ciudad está?:</p>
-        <input
-          type="text"
-          name=""
-          id=""
-          className="border w-full rounded-lg p-2"
-        />
+        <CustomImput></CustomImput>
       </label>
       <label className="w-full flex flex-col justify-center items-center gap-2 p-2">
         <p className="w-full">Pon la dirección:</p>
