@@ -1,10 +1,5 @@
-const cloudinary = require("cloudinary").v2;
+//const cloudinary = require("cloudinary").v2;
 
-cloudinary.v2.uploader
-  .upload("hat.jpg", {
-    use_filename: true,
-  })
-  .then((result: any) => console.log(result));
 // cloudinary.config({
 //   cloud_name: "fps-devs",
 //   api_key: "586389221448689",
