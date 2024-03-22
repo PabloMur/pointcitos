@@ -5,68 +5,53 @@ import { pointImageBase64Atom } from "@/atoms";
 import { useRecoilValue } from "recoil";
 import { FormEvent } from "react";
 import { useCreatePointer } from "@/hooks";
-import { cloudinary } from "@/lib/CloundinaryConnection";
 
 const CreatePointerForm = () => {
   const imageBase = useRecoilValue(pointImageBase64Atom);
   const createPointHook = useCreatePointer();
 
-  const handleSubmit = async (e: FormEvent) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
-    alert(imageBase);
-    console.log(imageBase);
-    //const finalImageUrl = await cloudinary.uploader.upload(imageBase);
+    const target = e.target;
+    const placeName = target.place.value;
+    const direction = target.direction.value;
+    const image = imageBase;
+    const category = "averiguar";
 
-    await createPointHook("hola", "como", {
-      points: [
-        {
-          category: "lugar",
-          createdBy: "Pablo",
-          favorite: false,
-          id: 123123,
-          img: "https://res.cloudinary.com/nearby-tour/image/upload/v1711043531/frame1_djn0xj.png",
-          location: "Mar del Plata, escollera sur",
-          name: "Poseidón",
-          visited: false,
-        },
-      ],
-    });
+    const finalPoint = {
+      placeName,
+      direction,
+      image,
+      category,
+    };
+
+    console.log(finalPoint);
   };
 
   return (
     <form
-      className="flex flex-col justify-center items-center border-2 border-black rounded-lg p-2 w-full text-black max-w-[450px]"
+      className="flex flex-col justify-center items-center border border-black rounded-lg p-4 w-full text-black max-w-[450px]"
       onSubmit={handleSubmit}
     >
       <label className="w-full flex flex-col justify-center items-center gap-2 p-2">
         <p className="w-full">Cual es el nombre del lugar?:</p>
-        <CustomImput></CustomImput>
+        <CustomImput
+          placeholder="Poseidón del Puerto"
+          name="place"
+          required={"required"}
+        ></CustomImput>
       </label>
       <label className="w-full flex flex-col justify-center items-center gap-2 p-2">
         <p className="w-full">En que ciudad está?:</p>
-        <CustomImput></CustomImput>
-      </label>
-      <label className="w-full flex flex-col justify-center items-center gap-2 p-2">
-        <p className="w-full">Pon la dirección:</p>
-        <input
-          type="text"
-          name=""
-          id=""
-          className="border w-full rounded-lg p-2"
-        />
-      </label>
-      <label className="w-full flex flex-col justify-center items-center gap-2 p-2">
-        <p className="w-full">Ponele una fotito:</p>
-        <input
-          type="text"
-          name=""
-          id=""
-          className="border w-full rounded-lg p-2"
-        />
+        <CustomImput
+          placeholder="Mar del Plata, Libertad 3349"
+          name="direction"
+          required={"required"}
+        ></CustomImput>
       </label>
       <label className="w-full flex flex-col justify-center items-center gap-2 p-2">
         <p className="w-full">Categoria</p>
-        <select id="selectOption">
+        <select id="selectOption" required={true}>
           <option value="">Selecciona...</option>
           <option value="option1">Opción 1</option>
           <option value="option2">Opción 2</option>

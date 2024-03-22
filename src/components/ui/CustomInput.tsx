@@ -4,8 +4,16 @@ type CustomImput = {
   value?: string;
   placeholder?: string;
   id?: string;
+  required?: any;
 };
-const CustomImput = ({ type, name, value, placeholder, id }: CustomImput) => {
+const CustomImput = ({
+  type,
+  name,
+  value,
+  placeholder,
+  id,
+  required,
+}: CustomImput) => {
   return (
     <input
       type={type}
@@ -13,7 +21,8 @@ const CustomImput = ({ type, name, value, placeholder, id }: CustomImput) => {
       value={value}
       placeholder={placeholder}
       id={id}
-      className="border w-full rounded-lg p-2"
+      className="border border-black w-full rounded-lg p-2"
+      required={required}
     />
   );
 };

@@ -6,16 +6,8 @@ import { SignInButton } from "./ui/SignupButton";
 const Navigation = () => {
   return (
     <nav className="hidden sm:flex justify-center items-center gap-3">
-      <CustomButton
-        text={"test"}
-        route="/myPointers"
-        action={() => {
-          alert("Está todo bien con la Caro");
-        }}
-      ></CustomButton>
       <CustomButton text="Mi Perfil" route="/profile"></CustomButton>
-
-      <MyPointsButton></MyPointsButton>
+      <CustomButton text="Mis Points" route="/myPointers"></CustomButton>
       <LoginButton></LoginButton>
       <SignInButton></SignInButton>
     </nav>

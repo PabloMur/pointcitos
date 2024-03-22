@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { generarNumeroAleatorio } from "@/lib/Tools";
 import { firestore } from "@/lib/FirebaseConn";
+import { cloudinary } from "@/lib/CloundinaryConnection";
 
 export async function GET(NextRequest: NextRequest) {
   const params = NextRequest.nextUrl.searchParams.get("pointerId");
@@ -54,6 +55,7 @@ export async function GET(NextRequest: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
+  //hay que ver como hacer lo de la imagen, pero tiene que ser aca
   try {
     const { creator, participants, points } = await req.json();
 
