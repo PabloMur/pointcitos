@@ -1,7 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { generarNumeroAleatorio } from "@/lib/Tools";
 import { firestore } from "@/lib/FirebaseConn";
-import { cloudinary } from "@/lib/CloundinaryConnection";
+import {
+  cloudinary,
+  uploadImageOnCloudinary,
+} from "@/lib/CloundinaryConnection";
 
 export async function GET(NextRequest: NextRequest) {
   const params = NextRequest.nextUrl.searchParams.get("pointerId");
@@ -57,7 +60,7 @@ export async function GET(NextRequest: NextRequest) {
 export async function POST(req: NextRequest) {
   //hay que ver como hacer lo de la imagen, pero tiene que ser aca
   try {
-    const { creator, participants, points } = await req.json();
+    const { point } = await req.json();
 
     const numeroAleatorio = generarNumeroAleatorio().toString();
 
@@ -66,15 +69,18 @@ export async function POST(req: NextRequest) {
     const ref = firestore.collection("points");
     //ref a la collection de los shotsCodes
     const codePoints = firestore.collection("codePoint").doc(numeroAleatorio);
-    //creando el pointer con los datos enviados por el front
-    const pointer = await ref.add({
-      creator,
-      participants,
-      points,
-    });
 
+    //creando el pointer con los datos enviados por el front
+    const image = point.image;
+
+    const finalImage = await uploadImageOnCloudinary(image);
+
+    const pointFinal = await ref.add({
+      ...point,
+      image: finalImage,
+    });
     //id largo del pointer
-    const pointerLongID = pointer.id;
+    const pointerLongID = pointFinal.id;
 
     // creando la vinculacion del codigo largo con el corto
     await codePoints.set({

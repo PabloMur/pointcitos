@@ -3,7 +3,6 @@ import { CustomImput } from "../ui/CustomInput";
 import { DropImage } from "../DropZone";
 import { pointImageBase64Atom } from "@/atoms";
 import { useRecoilValue } from "recoil";
-import { FormEvent } from "react";
 import { useCreatePointer } from "@/hooks";
 
 const CreatePointerForm = () => {
@@ -16,16 +15,19 @@ const CreatePointerForm = () => {
     const placeName = target.place.value;
     const direction = target.direction.value;
     const image = imageBase;
-    const category = "averiguar";
+    const category = e.target.selectOption.value;
+    const createdBay = "pablo@gmail.com";
 
     const finalPoint = {
       placeName,
       direction,
-      image,
+      image: "data:image/png;base64," + image,
       category,
+      createdBay,
     };
 
     console.log(finalPoint);
+    const pointCreated = await createPointHook(finalPoint);
   };
 
   return (
@@ -51,11 +53,16 @@ const CreatePointerForm = () => {
       </label>
       <label className="w-full flex flex-col justify-center items-center gap-2 p-2">
         <p className="w-full">Categoria</p>
-        <select id="selectOption" required={true}>
-          <option value="">Selecciona...</option>
-          <option value="option1">Opción 1</option>
-          <option value="option2">Opción 2</option>
-          <option value="option3">Opción 3</option>
+        <select
+          id="selectOption"
+          required={true}
+          className="w-full p-3 rounded-lg border border-black"
+        >
+          <option value="">Selecciona una categoria</option>
+          <option value="bares">Bares</option>
+          <option value="comida">Comida</option>
+          <option value="lugares">Lugares</option>
+          <option value="restaurantes">Restaurantes</option>
         </select>
       </label>
       <DropImage></DropImage>

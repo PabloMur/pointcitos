@@ -1,5 +1,7 @@
 import { useRouter } from "next/navigation";
 import { APICreatePointer } from "@/lib/APICalls";
+import { loaderAtom, pointImageBase64Atom } from "@/atoms";
+import { useRecoilState, useSetRecoilState } from "recoil";
 
 export function useGoTo() {
   const router = useRouter();
@@ -8,15 +10,15 @@ export function useGoTo() {
   };
 }
 
-export function useHola() {
-  return () => {
-    alert("hola");
-  };
-}
-
 export function useCreatePointer() {
-  return async (creator: any, participants: any, points: any) => {
-    const pointer = await APICreatePointer({ creator, participants, points });
+  const [loaderState, setLoaderState] = useRecoilState(loaderAtom);
+  const pointImageBase = useSetRecoilState(pointImageBase64Atom);
+
+  return async (point: any) => {
+    setLoaderState(true);
+    const pointer = await APICreatePointer(point);
+    pointImageBase("");
+    setLoaderState(false);
     return pointer;
   };
 }

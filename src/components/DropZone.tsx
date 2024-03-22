@@ -24,6 +24,7 @@ const DropImage = () => {
       if (typeof reader.result === "string") {
         const base64String = reader.result.split(",")[1];
         if (base64String) {
+          console.log(base64String);
           imageBase64Setter(base64String);
         }
       }

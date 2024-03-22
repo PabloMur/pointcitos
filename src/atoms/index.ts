@@ -15,3 +15,8 @@ export const pointImageBase64Atom = atom({
   key: "pointImageBase64Atom",
   default: "",
 });
+
+export const loaderAtom = atom({
+  key: "loaderAttom",
+  default: false,
+});

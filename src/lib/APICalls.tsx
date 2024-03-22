@@ -26,17 +26,9 @@ export const createList = async ({
   }
 };
 
-export const APICreatePointer = async ({
-  creator,
-  participants,
-  points,
-}: any) => {
+export const APICreatePointer = async (point: any) => {
   try {
-    const response = await axios.post("/api/point", {
-      creator,
-      participants,
-      points,
-    });
+    const response = await axios.post("/api/point", { point });
     console.log({
       data: response.data,
     });
