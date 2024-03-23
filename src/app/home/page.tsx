@@ -5,11 +5,7 @@ import invitation from "../../../public/invitation.jpg";
 const HomePage = () => {
   return (
     <div className="h-[90vh] bg-white text-black flex flex-col">
-      <ul className="w-full bg-orange-300 flex justify-end items-center p-4 gap-4 pr-10">
-        <li>perfil</li>
-        <li>mis points</li>
-      </ul>
-      <div className="flex justify-center items-center h-full gap-4">
+      <div className="flex flex-col sm:flex-row justify-center items-center h-full gap-4">
         <OptionCard
           img={createImage}
           content="Crear un pointer"

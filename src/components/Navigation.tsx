@@ -1,8 +1,13 @@
+import { CustomButton } from "./ui/CustomButton";
 import { LoginButton } from "./ui/LoginButton";
-import { SignInButton } from "./ui/SignInButton";
+import { MyPointsButton } from "./ui/MyPointsButton";
+
+import { SignInButton } from "./ui/SignupButton";
 const Navigation = () => {
   return (
-    <nav className=" flex justify-center items-center gap-3">
+    <nav className="hidden sm:flex justify-center items-center gap-3">
+      <CustomButton text="Mi Perfil" route="/profile"></CustomButton>
+      <CustomButton text="Mis Points" route="/myPointers"></CustomButton>
       <LoginButton></LoginButton>
       <SignInButton></SignInButton>
     </nav>
