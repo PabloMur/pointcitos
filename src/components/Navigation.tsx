@@ -8,6 +8,8 @@ const Navigation = () => {
     <nav className="hidden sm:flex justify-center items-center gap-3">
       <CustomButton text="Mi Perfil" route="/profile"></CustomButton>
       <CustomButton text="Mis Points" route="/myPointers"></CustomButton>
+      <CustomButton text="Crear Point" route="/create"></CustomButton>
+      <CustomButton text="Home" route="/home"></CustomButton>
       <LoginButton></LoginButton>
       <SignInButton></SignInButton>
     </nav>

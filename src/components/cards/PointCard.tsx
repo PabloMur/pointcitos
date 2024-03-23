@@ -9,13 +9,15 @@ type PointCardType = {
 const PointCard = ({ pointName, city, image, creator }: PointCardType) => {
   return (
     <div className="border p-4 rounded-lg w-full min-h-[30vh] text-black max-w-[500px]">
-      <Image
-        src={image}
-        alt="imagen descriptiva de un point"
-        className="rounded-lg"
-        width={300}
-        height={300}
-      ></Image>
+      <div className="w-full h-auto">
+        <Image
+          src={image}
+          alt="imagen descriptiva de un point"
+          className="rounded-lg"
+          width={600}
+          height={400}
+        ></Image>
+      </div>
       <h3 className="pt-4 font-bold">{pointName}</h3>
       <div className="w-full h-fit flex justify-start items-center">
         <Image
