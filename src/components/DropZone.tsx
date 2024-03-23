@@ -37,13 +37,11 @@ const DropImage = () => {
         <section className="w-full">
           <div
             {...getRootProps()}
-            style={{ height: 200, border: "1px solid black" }}
+            style={{ height: 170, border: "1px solid black" }}
             className="rounded-lg w-full p-4 mb-3 flex justify-center items-center"
           >
             <input {...getInputProps()} />
-            {!imagePreview && (
-              <p>Drag 'n' drop an image here, or click to select an image</p>
-            )}
+            {!imagePreview && <p>Agrega una Imagen del Point!</p>}
             {imagePreview && (
               <img
                 src={imagePreview}

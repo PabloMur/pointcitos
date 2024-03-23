@@ -20,3 +20,13 @@ export const loaderAtom = atom({
   key: "loaderAttom",
   default: false,
 });
+
+export const pointCreatedModal = atom({
+  key: "pointCreatedModal",
+  default: true,
+});
+
+export const myPoints = atom({
+  key: "myPoints",
+  default: [],
+});

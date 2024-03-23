@@ -13,6 +13,8 @@ const PointCard = ({ pointName, city, image, creator }: PointCardType) => {
         src={image}
         alt="imagen descriptiva de un point"
         className="rounded-lg"
+        width={300}
+        height={300}
       ></Image>
       <h3 className="pt-4 font-bold">{pointName}</h3>
       <div className="w-full h-fit flex justify-start items-center">

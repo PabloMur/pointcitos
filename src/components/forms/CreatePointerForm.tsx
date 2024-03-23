@@ -12,22 +12,17 @@ const CreatePointerForm = () => {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     const target = e.target;
-    const placeName = target.place.value;
-    const direction = target.direction.value;
-    const image = imageBase;
-    const category = e.target.selectOption.value;
-    const createdBay = "pablo@gmail.com";
+    const createdBy = "pablo@gmail.com";
 
     const finalPoint = {
-      placeName,
-      direction,
-      image: "data:image/png;base64," + image,
-      category,
-      createdBay,
+      placeName: target.place.value,
+      direction: target.direction.value,
+      image: "data:image/png;base64," + imageBase,
+      category: e.target.selectOption.value,
+      createdBy,
     };
 
-    console.log(finalPoint);
-    const pointCreated = await createPointHook(finalPoint);
+    await createPointHook(finalPoint);
   };
 
   return (
@@ -35,7 +30,7 @@ const CreatePointerForm = () => {
       className="flex flex-col justify-center items-center border border-black rounded-lg p-4 w-full text-black max-w-[450px]"
       onSubmit={handleSubmit}
     >
-      <label className="w-full flex flex-col justify-center items-center gap-2 p-2">
+      <label className="w-full flex flex-col justify-center items-center gap-2 pb-2">
         <p className="w-full">Cual es el nombre del lugar?:</p>
         <CustomImput
           placeholder="Poseidón del Puerto"
@@ -43,7 +38,7 @@ const CreatePointerForm = () => {
           required={"required"}
         ></CustomImput>
       </label>
-      <label className="w-full flex flex-col justify-center items-center gap-2 p-2">
+      <label className="w-full flex flex-col justify-center items-center gap-2 pb-2">
         <p className="w-full">En que ciudad está?:</p>
         <CustomImput
           placeholder="Mar del Plata, Libertad 3349"
@@ -51,7 +46,7 @@ const CreatePointerForm = () => {
           required={"required"}
         ></CustomImput>
       </label>
-      <label className="w-full flex flex-col justify-center items-center gap-2 p-2">
+      <label className="w-full flex flex-col justify-center items-center gap-2 pb-2">
         <p className="w-full">Categoria</p>
         <select
           id="selectOption"
@@ -66,7 +61,7 @@ const CreatePointerForm = () => {
         </select>
       </label>
       <DropImage></DropImage>
-      <button className="bg-blue-600 p-4 w-full rounded-lg text-white">
+      <button className="bg-blue-600 p-4 w-full rounded-lg text-white font-bold">
         Crear Poincito!
       </button>
     </form>
