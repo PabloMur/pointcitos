@@ -26,6 +26,11 @@ export const pointCreatedModal = atom({
   default: false,
 });
 
+export const addPointModalAtom = atom({
+  key: "addPointModalAtom",
+  default: true,
+});
+
 export const myPoints = atom({
   key: "myPoints",
   default: [],
