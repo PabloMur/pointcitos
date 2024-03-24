@@ -23,10 +23,15 @@ export const loaderAtom = atom({
 
 export const pointCreatedModal = atom({
   key: "pointCreatedModal",
-  default: true,
+  default: false,
 });
 
 export const myPoints = atom({
   key: "myPoints",
   default: [],
+});
+
+export const shortCode = atom({
+  key: "shortCode",
+  default: "",
 });

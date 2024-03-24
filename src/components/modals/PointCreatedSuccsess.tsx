@@ -2,10 +2,11 @@
 import Image from "next/image";
 import success from "../../../public/icons/success.svg";
 import crossModal from "../../../public/icons/crossModal.svg";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import { pointCreatedModal } from "@/atoms";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { pointCreatedModal, shortCode } from "@/atoms";
 const PointCreatedModal = () => {
   const [active, setCloseModal] = useRecoilState(pointCreatedModal);
+  const code = useRecoilValue(shortCode);
   const handleCloseModal = () => {
     setCloseModal(false);
   };
@@ -25,7 +26,8 @@ const PointCreatedModal = () => {
           </div>
           <div className="h-full flex justify-center items-center gap-2">
             <p className="text-black font-bold">
-              Point Creado, Felicitaciones!
+              Point Creado, Felicitaciones!<br></br>
+              Este es el código que debes compartir {code}
             </p>
             <Image
               src={success}

@@ -15,6 +15,22 @@ export const APICreatePointer = async (point: any) => {
   }
 };
 
+export const APICreateRealPointer = async (
+  email: string,
+  pointerName: string
+) => {
+  try {
+    const response = await axios.post("/api/pointer", {
+      email,
+      pointerName,
+    });
+    return { data: response.data };
+  } catch (error) {
+    console.error(error);
+    return { data: null, error: "Error al crear el Pointer" };
+  }
+};
+
 export const APIGetMyPoints = async (email: string) => {
   try {
     const response = await axios.get(`api/getMyPointsCreated?email=${email}`);
