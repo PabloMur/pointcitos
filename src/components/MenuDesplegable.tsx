@@ -14,12 +14,28 @@ const MenuDesplegable = () => {
 
   return (
     active && (
-      <menu className="absolute top-[10vh] bg-white left-0 right-0 h-[85vh] flex justify-center items-center z-30">
+      <menu className="fixed top-[10vh] bg-white left-0 right-0 bottom-0 flex justify-center items-center z-30">
         <ul className="flex flex-col justify-center items-center gap-2">
-          <CustomButton text="Mi Perfil" route="/profile"></CustomButton>
-          <CustomButton text="Mis Points" route="/myPointers"></CustomButton>
-          <CustomButton text="Crear Point" route="/create"></CustomButton>
-          <CustomButton text="Home" route="/home"></CustomButton>
+          <CustomButton
+            text="Mi Perfil"
+            route="/profile"
+            action={handleCloseMenu}
+          ></CustomButton>
+          <CustomButton
+            text="Mis Points"
+            route="/myPointers"
+            action={handleCloseMenu}
+          ></CustomButton>
+          <CustomButton
+            text="Crear Point"
+            route="/create"
+            action={handleCloseMenu}
+          ></CustomButton>
+          <CustomButton
+            text="Home"
+            route="/home"
+            action={handleCloseMenu}
+          ></CustomButton>
           <LoginButton></LoginButton>
           <SignInButton></SignInButton>
         </ul>
