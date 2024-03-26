@@ -6,9 +6,9 @@ interface ApiResponse<T> {
   error?: string;
 }
 
-export const APICreatePointer = async (point: any) => {
+export const APICreatePointer = async (point: any, code: string) => {
   try {
-    const response = await axios.post("/api/point", { point });
+    const response = await axios.post("/api/point", { point, code });
     return { data: response.data };
   } catch (error) {
     console.error("Error al crear el pointer", error);

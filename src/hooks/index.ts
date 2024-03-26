@@ -14,6 +14,7 @@ import {
   shortCode,
 } from "@/atoms";
 import {
+  constSelector,
   useGotoRecoilSnapshot,
   useRecoilState,
   useRecoilValue,
@@ -33,10 +34,12 @@ export function useCreatePointer() {
   const goto = useGoTo();
   const pointImageBase = useSetRecoilState(pointImageBase64Atom);
   const setModalPointCreatedActive = useSetRecoilState(pointCreatedModal);
+  const pathname = usePathname();
+  const code = pathname.slice(-5);
 
   return async (point: any) => {
     setLoaderState(true);
-    const pointer = await APICreatePointer(point);
+    const pointer = await APICreatePointer(point, code);
     pointImageBase("");
     setLoaderState(false);
     setModalPointCreatedActive(true);
@@ -92,6 +95,7 @@ export async function useGetPointerData() {
     try {
       setLoaderState(true);
       const points = await APIGetPointInfo(codeUrl);
+      console.log(points.data.data.pointerName);
       setLoaderState(false);
       return points;
     } catch (error) {

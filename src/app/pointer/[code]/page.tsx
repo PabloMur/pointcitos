@@ -19,15 +19,10 @@ const PointerPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       const data = (await useGetPointerData()) as any; // Llama al hook para obtener los datos del punto
-      console.log(data);
       setPointerData(data); // Actualiza el estado con los datos obtenidos
     };
-
     fetchData();
   }, []);
-  console.log(pointerData);
-  //const empty = pointerInfo.data.data.points.length == 0;
-  //const points = pointerInfo.data.data.points;
 
   return (
     <div className="min-h-[90vh] flex flex-col justify-start items-center bg-white p-4">
