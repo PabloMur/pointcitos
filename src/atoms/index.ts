@@ -21,12 +21,28 @@ export const loaderAtom = atom({
   default: false,
 });
 
+// MODALS
 export const pointCreatedModal = atom({
   key: "pointCreatedModal",
-  default: true,
+  default: false,
+});
+
+export const addPointModalAtom = atom({
+  key: "addPointModalAtom",
+  default: false,
 });
 
 export const myPoints = atom({
   key: "myPoints",
   default: [],
+});
+
+export const shortCode = atom({
+  key: "shortCode",
+  default: "",
+});
+
+export const pointerData = atom({
+  key: "pointerData",
+  default: {},
 });

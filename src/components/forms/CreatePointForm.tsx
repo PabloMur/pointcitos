@@ -27,7 +27,7 @@ const CreatePointerForm = () => {
 
   return (
     <form
-      className="flex flex-col justify-center items-center border border-black rounded-lg p-4 w-full text-black max-w-[450px]"
+      className="flex flex-col justify-center items-center border border-black rounded-lg p-4 w-full text-black max-w-[450px] bg-white cursor-pointer"
       onSubmit={handleSubmit}
     >
       <label className="w-full flex flex-col justify-center items-center gap-2 pb-2">
@@ -61,7 +61,7 @@ const CreatePointerForm = () => {
         </select>
       </label>
       <DropImage></DropImage>
-      <button className="bg-blue-600 p-4 w-full rounded-lg text-white font-bold">
+      <button className="bg-blue-600 p-4 w-full rounded-lg text-white font-bold cursor-pointer">
         Crear Poincito!
       </button>
     </form>

@@ -58,48 +58,52 @@ export async function GET(NextRequest: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
-  //hay que ver como hacer lo de la imagen, pero tiene que ser aca
   try {
-    const { point } = await req.json();
+    const { point, code } = await req.json();
 
-    const numeroAleatorio = generarNumeroAleatorio().toString();
+    // Obtener el ID del pointer a partir del código
+    const easyCodeRef = firestore.collection("easyCode").doc(code);
+    const easyCodeData = (await easyCodeRef.get()).data() as any;
+    const pointerId = easyCodeData.easyCode;
 
-    //crear el point en la base de datos
-    // ref a la collection points
-    const ref = firestore.collection("points");
-    //ref a la collection de los shotsCodes
-    const codePoints = firestore.collection("codePoint").doc(numeroAleatorio);
+    if (!pointerId) {
+      return NextResponse.json({
+        error: "No se encontró ningún pointer con el código proporcionado",
+      });
+    }
 
-    //creando el pointer con los datos enviados por el front
-    const image = point.image;
+    // Agregar el punto al array de puntos del pointer
+    const pointerRef = firestore.collection("pointers").doc(pointerId);
+    const pointerDoc = await pointerRef.get();
+    const pointerData = pointerDoc.data();
 
-    const finalImage = await uploadImageOnCloudinary(image);
+    if (!pointerData) {
+      return NextResponse.json({
+        error: "No se encontró ningún pointer con el ID proporcionado",
+      });
+    }
 
-    const pointFinal = await ref.add({
+    const points = pointerData.points || [];
+
+    const finalImage = await uploadImageOnCloudinary(point.image);
+
+    const pointFinal = {
       ...point,
       image: finalImage,
-    });
-    //id largo del pointer
-    const pointerLongID = pointFinal.id;
+    };
 
-    // creando la vinculacion del codigo largo con el corto
-    await codePoints.set({
-      pointerId: pointerLongID,
-    });
+    points.push(pointFinal);
+
+    await pointerRef.update({ points });
 
     return NextResponse.json({
-      created: true,
-      shortID: numeroAleatorio,
-      message:
-        "Comparte este código con las personas que quieras invitar al pointer " +
-        numeroAleatorio,
+      code,
+      message: "Punto agregado correctamente al pointer",
     });
   } catch (error) {
     console.error(error);
-
     return NextResponse.json({
-      message: "Hubo un error al crear el Pointer",
-      error,
+      error: "Hubo un error al procesar la solicitud",
     });
   }
 }
