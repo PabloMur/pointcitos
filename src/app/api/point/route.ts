@@ -85,12 +85,14 @@ export async function POST(req: NextRequest) {
 
     const points = pointerData.points || [];
 
-    if (point.image) {
-      const finalImage = await uploadImageOnCloudinary(point.image);
-      point.image = finalImage;
-    }
+    const finalImage = await uploadImageOnCloudinary(point.image);
 
-    points.push(point);
+    const pointFinal = {
+      ...point,
+      image: finalImage,
+    };
+
+    points.push(pointFinal);
 
     await pointerRef.update({ points });
 

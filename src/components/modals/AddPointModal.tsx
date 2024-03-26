@@ -12,7 +12,7 @@ const AddPointModal = () => {
 
   return (
     active && (
-      <div className="fixed bg-black/70 text-white top-0 left-0 right-0 bottom-0 flex justify-center items-center flex-col">
+      <div className="fixed bg-black/70 text-white top-0 left-0 right-0 bottom-0 flex justify-center items-center flex-col z-20">
         <div className="w-1/3 flex justify-end items-center mb-2">
           <button
             className="bg-red-600 p-2 rounded-lg cursor-pointer"

@@ -6,6 +6,7 @@ import {
   APIGetPointInfo,
 } from "@/lib/APICalls";
 import {
+  addPointModalAtom,
   loaderAtom,
   myPoints,
   pointCreatedModal,
@@ -30,10 +31,9 @@ export function useGoTo() {
 }
 
 export function useCreatePointer() {
-  const [loaderState, setLoaderState] = useRecoilState(loaderAtom);
-  const goto = useGoTo();
+  const setLoaderState = useSetRecoilState(loaderAtom);
   const pointImageBase = useSetRecoilState(pointImageBase64Atom);
-  const setModalPointCreatedActive = useSetRecoilState(pointCreatedModal);
+  const modalSetter = useSetRecoilState(addPointModalAtom);
   const pathname = usePathname();
   const code = pathname.slice(-5);
 
@@ -41,9 +41,9 @@ export function useCreatePointer() {
     setLoaderState(true);
     const pointer = await APICreatePointer(point, code);
     pointImageBase("");
+    modalSetter(false);
     setLoaderState(false);
-    setModalPointCreatedActive(true);
-    goto("/myPointers");
+    location.reload();
     return pointer;
   };
 }
@@ -86,24 +86,23 @@ export function useGetMyPoints(email: string) {
   }, []);
 }
 
-export async function useGetPointerData() {
+export async function useGetPointerData(code: string) {
   const setLoaderState = useSetRecoilState(loaderAtom);
-  const pathname = usePathname();
-  const codeUrl = pathname.slice(-5);
+  const pointerDataSetter = useSetRecoilState(pointerData);
 
-  const getPointInfo = async () => {
-    try {
-      setLoaderState(true);
-      const points = await APIGetPointInfo(codeUrl);
-      console.log(points.data.data.pointerName);
-      setLoaderState(false);
-      return points;
-    } catch (error) {
-      console.error("Error al obtener puntos:", error);
-      setLoaderState(false);
-      return null; // O manejar el error de otra manera si es necesario
-    }
-  };
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoaderState(true);
+        const points = await APIGetPointInfo(code);
+        pointerDataSetter(points);
+        setLoaderState(false);
+        return points;
+      } catch (error) {
+        console.error("Error al obtener puntos:", error);
+      }
+    };
 
-  return getPointInfo();
+    fetchData();
+  }, [code, setLoaderState]);
 }

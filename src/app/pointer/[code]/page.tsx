@@ -1,36 +1,42 @@
 "use client";
-import { PointCard } from "@/components/cards/PointCard";
-import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { AddPointModal } from "@/components/modals/AddPointModal";
+import { useGetPointerData } from "@/hooks";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 import { CategoryButton } from "@/components/ui/CatergoryButton";
 import { AddPointButton } from "@/components/ui/buttons/AddPointButton";
-import { AddPointModal } from "@/components/modals/AddPointModal";
-import { useGetPointerData } from "@/hooks";
-import { useRecoilValue } from "recoil";
+import { usePathname } from "next/navigation";
+import { useRecoilState } from "recoil";
 import { pointerData } from "@/atoms";
-import { EmptyPointer } from "@/components/ui/EmptyPopinter";
-import { useEffect, useState } from "react";
+import { PointCard } from "@/components/cards/PointCard";
 
-//aca tenemos que traer el hook que nos trae la data del pointer
 const PointerPage = () => {
-  useGetPointerData();
-  const [pointerData, setPointerData] = useState(null);
+  const [pointerDataAtom, setPointerData] = useRecoilState<any>(pointerData);
+  const pathname = usePathname();
+  const codeUrl = pathname.slice(-5);
+  const [points, setPoints] = useState<any[]>([]);
+
+  useGetPointerData(codeUrl);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const data = (await useGetPointerData()) as any; // Llama al hook para obtener los datos del punto
-      setPointerData(data); // Actualiza el estado con los datos obtenidos
-    };
-    fetchData();
-  }, []);
+    console.log(pointerDataAtom.data);
+    if (pointerDataAtom.data) {
+      const fetchedPoints = pointerDataAtom.data.data.points;
+      console.log(fetchedPoints);
+      setPoints(fetchedPoints);
+    }
+  }, [pointerDataAtom]);
 
   return (
     <div className="min-h-[90vh] flex flex-col justify-start items-center bg-white p-4">
-      <AddPointModal></AddPointModal>
+      <AddPointModal />
       <div className="w-full p-2 flex justify-between items-center">
-        <SectionTitle text="Estos son los Poincitos, esperamos que los disfruten y la pasen lindo!"></SectionTitle>
-        <AddPointButton></AddPointButton>
+        <SectionTitle text="Estos son los Poincitos, esperamos que los disfruten y la pasen lindo!" />
+        <AddPointButton />
       </div>
+      <p className="text-black text-start w-full font-bold">
+        pointer :{pointerDataAtom?.data?.data.pointerName}
+      </p>
       <div className="w-full p-2">
         <p className="text-black font-bold"></p>
       </div>
@@ -39,18 +45,28 @@ const PointerPage = () => {
           También podés buscar por categorías:
         </p>
         <ul className="w-full flex justify-start items-center p-4 gap-4 pr-10 overflow-x-scroll sm:overflow-auto">
-          <CategoryButton category={"Comida"}></CategoryButton>
-          <CategoryButton category={"Bares"}></CategoryButton>
-          <CategoryButton category={"Restaurantes"}></CategoryButton>
-          <CategoryButton category={"Lugares"}></CategoryButton>
+          <CategoryButton category={"Comida"} />
+          <CategoryButton category={"Bares"} />
+          <CategoryButton category={"Restaurantes"} />
+          <CategoryButton category={"Lugares"} />
         </ul>
       </div>
-      <div className="min-h-[50vh] w-full p-4 relative">
+      <div className="min-h-[50vh] w-full p-4 relative z-10">
         <p className="text-black">Points</p>
+        <div>
+          {points.map((p: any) => (
+            <PointCard
+              key={p.id} // Asegúrate de tener una clave única para cada punto
+              image={p.image}
+              creator={p.createdBy}
+              city={p.direction}
+              pointName={p.placeName}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );
 };
 
-//<EmptyPointer active={empty}></EmptyPointer> componente a reparar
 export default PointerPage;
