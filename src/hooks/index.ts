@@ -1,19 +1,22 @@
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import {
   APICreatePointer,
   APICreateRealPointer,
   APIGetMyPoints,
+  APIGetPointInfo,
 } from "@/lib/APICalls";
 import {
   loaderAtom,
   myPoints,
   pointCreatedModal,
   pointImageBase64Atom,
+  pointerData,
   shortCode,
 } from "@/atoms";
 import {
   useGotoRecoilSnapshot,
   useRecoilState,
+  useRecoilValue,
   useSetRecoilState,
 } from "recoil";
 import { useEffect } from "react";
@@ -78,4 +81,25 @@ export function useGetMyPoints(email: string) {
 
     getPoints();
   }, []);
+}
+
+export async function useGetPointerData() {
+  const setLoaderState = useSetRecoilState(loaderAtom);
+  const pathname = usePathname();
+  const codeUrl = pathname.slice(-5);
+
+  const getPointInfo = async () => {
+    try {
+      setLoaderState(true);
+      const points = await APIGetPointInfo(codeUrl);
+      setLoaderState(false);
+      return points;
+    } catch (error) {
+      console.error("Error al obtener puntos:", error);
+      setLoaderState(false);
+      return null; // O manejar el error de otra manera si es necesario
+    }
+  };
+
+  return getPointInfo();
 }

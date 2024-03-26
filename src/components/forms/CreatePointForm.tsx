@@ -27,7 +27,7 @@ const CreatePointerForm = () => {
 
   return (
     <form
-      className="flex flex-col justify-center items-center border border-black rounded-lg p-4 w-full text-black max-w-[450px] bg-white"
+      className="flex flex-col justify-center items-center border border-black rounded-lg p-4 w-full text-black max-w-[450px] bg-white z-50"
       onSubmit={handleSubmit}
     >
       <label className="w-full flex flex-col justify-center items-center gap-2 pb-2">

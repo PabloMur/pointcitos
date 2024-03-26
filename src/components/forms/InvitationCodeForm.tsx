@@ -8,8 +8,7 @@ const InvitationFormCode = () => {
     e.preventDefault();
     const target = e.target;
     const code = target.code.value;
-    console.log(code);
-    alert(`ingresando a al pointeeer ${code}`);
+    //aca se deberia hacer un hook para que se checkee si existe el codigo y caso de que si, ahi se ingrese
     goto(`/pointer/${code}`);
   };
 
