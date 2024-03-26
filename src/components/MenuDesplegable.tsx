@@ -14,7 +14,7 @@ const MenuDesplegable = () => {
 
   return (
     active && (
-      <menu className="absolute top-[10vh] bg-white left-0 right-0 h-[85vh] flex justify-center items-center">
+      <menu className="absolute top-[10vh] bg-white left-0 right-0 h-[85vh] flex justify-center items-center z-30">
         <ul className="flex flex-col justify-center items-center gap-2">
           <CustomButton text="Mi Perfil" route="/profile"></CustomButton>
           <CustomButton text="Mis Points" route="/myPointers"></CustomButton>
