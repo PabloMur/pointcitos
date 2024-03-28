@@ -62,3 +62,17 @@ export const APIGetPointInfo = async (code: string) => {
     };
   }
 };
+
+export const APICheckPointerCode = async (code: string) => {
+  try {
+    const response = await axios.post(`/api/checkPointer`, { code });
+    return { data: response.data };
+  } catch (error) {
+    console.error(error);
+    return {
+      data: null,
+      error,
+      message: "Error, código inexistente",
+    };
+  }
+};

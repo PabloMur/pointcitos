@@ -19,18 +19,16 @@ const PointerPage = () => {
   useGetPointerData(codeUrl);
 
   useEffect(() => {
-    console.log(pointerDataAtom.data);
     if (pointerDataAtom.data) {
       const fetchedPoints = pointerDataAtom.data.data.points;
-      console.log(fetchedPoints);
       setPoints(fetchedPoints);
     }
   }, [pointerDataAtom]);
 
   return (
-    <div className="min-h-[90vh] flex flex-col justify-start items-center bg-white p-4">
+    <div className="min-h-[90vh] flex flex-col justify-start items-center bg-white p-4 overflow-hidden mt-20">
       <AddPointModal />
-      <div className="w-full p-2 flex justify-between items-center">
+      <div className="w-full p-2 flex flex-col sm:flex-row justify-between items-center">
         <SectionTitle text="Estos son los Poincitos, esperamos que los disfruten y la pasen lindo!" />
         <AddPointButton />
       </div>
@@ -40,8 +38,8 @@ const PointerPage = () => {
       <div className="w-full p-2">
         <p className="text-black font-bold"></p>
       </div>
-      <div className="flex justify-center items-center w-full border-b border-black">
-        <p className="text-black  w-1/3 flex justify-center items-center font-bold">
+      <div className="flex flex-col sm:flex-row justify-center items-center w-full border-b border-black">
+        <p className="text-black  w-1/3 flex  justify-center items-center font-bold">
           También podés buscar por categorías:
         </p>
         <ul className="w-full flex justify-start items-center p-4 gap-4 pr-10 overflow-x-scroll sm:overflow-auto">
@@ -53,7 +51,7 @@ const PointerPage = () => {
       </div>
       <div className="min-h-[50vh] w-full p-4 relative z-10">
         <p className="text-black">Points</p>
-        <div>
+        <div className="flex gap-2 flex-wrap justify-center items-start">
           {points.map((p: any) => (
             <PointCard
               key={p.id} // Asegúrate de tener una clave única para cada punto
@@ -61,6 +59,7 @@ const PointerPage = () => {
               creator={p.createdBy}
               city={p.direction}
               pointName={p.placeName}
+              category={p.category}
             />
           ))}
         </div>
@@ -68,5 +67,9 @@ const PointerPage = () => {
     </div>
   );
 };
+
+{
+  /*  */
+}
 
 export default PointerPage;

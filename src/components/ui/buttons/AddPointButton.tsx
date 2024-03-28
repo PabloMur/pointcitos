@@ -15,7 +15,7 @@ const AddPointButton = () => {
       onClick={handleClick}
     >
       <Image src={plus} alt="plus icon image" width={22} height={22}></Image>
-      <p className="font-bold">Agregar un Point</p>
+      <p className="font-bold text-white">Agregar un Point</p>
     </button>
   );
 };

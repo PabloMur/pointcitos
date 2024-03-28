@@ -50,6 +50,7 @@ export async function POST(req: NextRequest) {
     if (pointer) {
       await easyCodeRef.set({
         easyCode: pointer.id,
+        creator: email,
       });
       return NextResponse.json({
         message: "creando pointer",

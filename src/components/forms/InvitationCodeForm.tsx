@@ -1,15 +1,16 @@
 "use client";
-import { useGoTo } from "@/hooks";
+import { useGoTo, useCheckPointerCode } from "@/hooks";
 
 const InvitationFormCode = () => {
   const goto = useGoTo();
+  const codeChecker = useCheckPointerCode();
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     const target = e.target;
     const code = target.code.value;
     //aca se deberia hacer un hook para que se checkee si existe el codigo y caso de que si, ahi se ingrese
-    goto(`/pointer/${code}`);
+    await codeChecker(code);
   };
 
   return (
