@@ -1,5 +1,6 @@
 import { usePathname, useRouter } from "next/navigation";
 import {
+  APICheckPointerCode,
   APICreatePointer,
   APICreateRealPointer,
   APIGetMyPoints,
@@ -105,4 +106,28 @@ export async function useGetPointerData(code: string) {
 
     fetchData();
   }, [code, setLoaderState]);
+}
+
+export function useCheckPointerCode() {
+  const goToPointer = useGoTo();
+  const loaderSetter = useSetRecoilState(loaderAtom);
+
+  const checkPointerCode = async (code: string) => {
+    try {
+      loaderSetter(true);
+      const response = (await APICheckPointerCode(code)) as any;
+      if (response.data.codeExists) {
+        goToPointer(`/pointer/${code}`);
+        loaderSetter(false);
+      } else {
+        loaderSetter(false);
+        alert("Código incorrecto!");
+      }
+    } catch (error) {
+      console.error("Error al verificar el código del punto:", error);
+      alert("Hubo un error al verificar el código del punto.");
+    }
+  };
+
+  return checkPointerCode;
 }
