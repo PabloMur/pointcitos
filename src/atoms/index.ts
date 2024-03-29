@@ -24,7 +24,7 @@ export const loaderAtom = atom({
 // MODALS
 export const pointCreatedModal = atom({
   key: "pointCreatedModal",
-  default: true,
+  default: false,
 });
 
 export const addPointModalAtom = atom({

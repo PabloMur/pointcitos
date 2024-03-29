@@ -9,6 +9,10 @@ const Navigation = () => {
       <CustomButton text="Mi Perfil" route="/profile"></CustomButton>
       <CustomButton text="Mis Points" route="/myPointers"></CustomButton>
       <CustomButton text="Crear Pointer" route="/create"></CustomButton>
+      <CustomButton
+        text="ingresar a un   Pointer"
+        route="/invitation"
+      ></CustomButton>
       <CustomButton text="Home" route="/home"></CustomButton>
       <LoginButton></LoginButton>
       <SignInButton></SignInButton>

@@ -7,7 +7,7 @@ const MyPointersPage = () => {
   useGetMyPoints("pablo@gmail.com");
   let myPointers: any = useRecoilValue(myPoints);
   return (
-    <div className="min-h-[90vh] flex flex-col gap-2 justify-start items-center text-black bg-white">
+    <div className="min-h-[90vh] flex flex-col gap-2 justify-start items-center text-black bg-white mt-20">
       <MyPointersCard pointerName="Pablo y Otto" code="123321"></MyPointersCard>
     </div>
   );

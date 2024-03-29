@@ -4,7 +4,7 @@ import { CreatePointer } from "@/components/forms/CreatePointer";
 
 const CreatePointerPage = () => {
   return (
-    <div className="min-h-[90vh] flex justify-center items-center p-2 bg-white">
+    <div className="min-h-[90vh] flex justify-center items-center p-2 bg-white mt-20">
       <CreatePointer></CreatePointer>
     </div>
   );
