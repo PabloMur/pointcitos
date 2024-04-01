@@ -8,11 +8,18 @@ export async function GET(req: NextRequest) {
     const querySnapshot = await myPointsRef.where("creator", "==", email).get();
 
     const myPointsData: any = [];
-    querySnapshot.forEach((doc) => {
+    for (const doc of querySnapshot.docs) {
       const data = doc.data();
-      // Agregar el ID del documento a los datos
-      myPointsData.push({ id: doc.id, ...data });
-    });
+      const ref = firestore.collection("pointers");
+      const docFinal = await ref.doc(data.easyCode).get();
+      const docPointerData = docFinal.data();
+      console.log({ ...data, id: doc.id, pointerData: docPointerData });
+      myPointsData.push({
+        ...data,
+        id: doc.id,
+        pointerData: docPointerData,
+      });
+    }
 
     return NextResponse.json({ email, myPoints: myPointsData });
   } catch (error) {

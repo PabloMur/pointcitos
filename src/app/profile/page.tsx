@@ -5,7 +5,7 @@
 // cantidad de pointers en donde fue invitado
 const ProfilePage = () => {
   return (
-    <div className="h-[90vh] w-full bg-white text-black flex justify-center items-center">
+    <div className="h-[90vh] w-full bg-white text-black flex justify-center items-center mt-20">
       <p>PERFIL</p>
     </div>
   );

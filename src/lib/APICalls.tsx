@@ -76,3 +76,17 @@ export const APICheckPointerCode = async (code: string) => {
     };
   }
 };
+
+export const APIFindByCategory = async (code: string, category: string) => {
+  try {
+    const response = await axios.post("/api/category", { code, category });
+    return { data: response.data };
+  } catch (error) {
+    console.error(error);
+    return {
+      data: null,
+      error,
+      message: "Error al buscar por categoría",
+    };
+  }
+};
