@@ -3,6 +3,7 @@ import {
   APICheckPointerCode,
   APICreatePointer,
   APICreateRealPointer,
+  APIFindByCategory,
   APIGetMyPoints,
   APIGetPointInfo,
 } from "@/lib/APICalls";
@@ -13,6 +14,7 @@ import {
   pointCreatedModal,
   pointImageBase64Atom,
   pointerData,
+  pointsAtom,
   shortCode,
 } from "@/atoms";
 import {
@@ -22,7 +24,7 @@ import {
   useRecoilValue,
   useSetRecoilState,
 } from "recoil";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export function useGoTo() {
   const router = useRouter();
@@ -68,14 +70,14 @@ export function useCreateRealPointer() {
 
 export function useGetMyPoints(email: string) {
   const setLoaderState = useSetRecoilState(loaderAtom);
-  const myPointsSetter = useSetRecoilState(myPoints);
+  const [points, setPoints] = useState();
 
   useEffect(() => {
     const getPoints = async () => {
       try {
         setLoaderState(true);
         const points = await APIGetMyPoints(email);
-        myPointsSetter(points.data.myPoints);
+        setPoints(points.data.myPoints);
       } catch (error) {
         console.error("Error al obtener puntos:", error);
       } finally {
@@ -85,6 +87,8 @@ export function useGetMyPoints(email: string) {
 
     getPoints();
   }, []);
+
+  return points;
 }
 
 export async function useGetPointerData(code: string) {
@@ -130,4 +134,24 @@ export function useCheckPointerCode() {
   };
 
   return checkPointerCode;
+}
+
+export function useFilterByCategory() {
+  const loaderSetter = useSetRecoilState(loaderAtom);
+  const pointsSetter = useSetRecoilState(pointsAtom);
+
+  const filter = async (code: string, category: string) => {
+    try {
+      loaderSetter(true);
+      const response = (await APIFindByCategory(code, category)) as any;
+      console.log(response.data);
+      pointsSetter(response.data.points);
+      loaderSetter(false);
+    } catch (error) {
+      console.error(error);
+      alert("Hubo un error al filtrar por categoria");
+    }
+  };
+
+  return filter;
 }

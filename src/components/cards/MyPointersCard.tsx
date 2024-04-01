@@ -20,7 +20,7 @@ const MyPointersCard = ({ pointerName, code }: MyPointersCardType) => {
       onClick={handleClick}
     >
       <p className="font-bold">{pointerName}</p>
-      <p>Codigo: {code}</p>
+      <p className="min-w-[100px] text-2xl font-bold">{code}</p>
     </div>
   );
 };
