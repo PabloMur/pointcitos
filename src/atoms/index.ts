@@ -46,3 +46,8 @@ export const pointerData = atom({
   key: "pointerData",
   default: {},
 });
+
+export const pointsAtom = atom({
+  key: "pointesAtom",
+  default: [],
+});

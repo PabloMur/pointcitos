@@ -6,15 +6,17 @@ import { SectionTitle } from "@/components/ui/SectionTitle";
 import { CategoryButton } from "@/components/ui/CatergoryButton";
 import { AddPointButton } from "@/components/ui/buttons/AddPointButton";
 import { usePathname } from "next/navigation";
-import { useRecoilState } from "recoil";
-import { pointerData } from "@/atoms";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { pointerData, pointsAtom } from "@/atoms";
 import { PointCard } from "@/components/cards/PointCard";
+import { AllPointsButton } from "@/components/ui/buttons/AllPointsButton";
 
 const PointerPage = () => {
   const [pointerDataAtom, setPointerData] = useRecoilState<any>(pointerData);
   const pathname = usePathname();
   const codeUrl = pathname.slice(-5);
   const [points, setPoints] = useState<any[]>([]);
+  const filteredPoints = useRecoilValue(pointsAtom);
 
   useGetPointerData(codeUrl);
 
@@ -24,6 +26,12 @@ const PointerPage = () => {
       setPoints(fetchedPoints);
     }
   }, [pointerDataAtom]);
+
+  useEffect(() => {
+    if (filteredPoints) {
+      setPoints(filteredPoints);
+    }
+  }, [filteredPoints]);
 
   return (
     <div className="min-h-[90vh] flex flex-col justify-start items-center bg-white p-4 overflow-hidden mt-20">
@@ -47,20 +55,21 @@ const PointerPage = () => {
           <CategoryButton category={"Bares"} />
           <CategoryButton category={"Restaurantes"} />
           <CategoryButton category={"Lugares"} />
+          <AllPointsButton></AllPointsButton>
         </ul>
       </div>
       <div className="min-h-[50vh] w-full p-4 relative z-10">
-        <p className="text-black">Points</p>
-        <div className="flex gap-2 flex-wrap justify-center items-start">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
           {points.map((p: any) => (
-            <PointCard
-              key={p.id} // Asegúrate de tener una clave única para cada punto
-              image={p.image}
-              creator={p.createdBy}
-              city={p.direction}
-              pointName={p.placeName}
-              category={p.category}
-            />
+            <div key={p.id} className="flex justify-center">
+              <PointCard
+                image={p.image}
+                creator={p.createdBy}
+                city={p.direction}
+                pointName={p.placeName}
+                category={p.category}
+              />
+            </div>
           ))}
         </div>
       </div>

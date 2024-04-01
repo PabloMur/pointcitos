@@ -3,6 +3,7 @@ import {
   APICheckPointerCode,
   APICreatePointer,
   APICreateRealPointer,
+  APIFindByCategory,
   APIGetMyPoints,
   APIGetPointInfo,
 } from "@/lib/APICalls";
@@ -13,6 +14,7 @@ import {
   pointCreatedModal,
   pointImageBase64Atom,
   pointerData,
+  pointsAtom,
   shortCode,
 } from "@/atoms";
 import {
@@ -132,4 +134,24 @@ export function useCheckPointerCode() {
   };
 
   return checkPointerCode;
+}
+
+export function useFilterByCategory() {
+  const loaderSetter = useSetRecoilState(loaderAtom);
+  const pointsSetter = useSetRecoilState(pointsAtom);
+
+  const filter = async (code: string, category: string) => {
+    try {
+      loaderSetter(true);
+      const response = (await APIFindByCategory(code, category)) as any;
+      console.log(response.data);
+      pointsSetter(response.data.points);
+      loaderSetter(false);
+    } catch (error) {
+      console.error(error);
+      alert("Hubo un error al filtrar por categoria");
+    }
+  };
+
+  return filter;
 }
