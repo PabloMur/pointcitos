@@ -8,10 +8,12 @@ const MyPointersPage = () => {
       {points &&
         points.map((p: any) => {
           return (
-            <MyPointersCard
-              pointerName={p.pointerData.pointerName}
-              code={p.id}
-            ></MyPointersCard>
+            <div key={p.id}>
+              <MyPointersCard
+                pointerName={p.pointerData.pointerName}
+                code={p.id}
+              ></MyPointersCard>
+            </div>
           );
         })}
     </div>
