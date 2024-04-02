@@ -7,7 +7,7 @@ const Navigation = () => {
   return (
     <nav className="hidden sm:flex justify-center items-center gap-3">
       <CustomButton text="Mi Perfil" route="/profile"></CustomButton>
-      <CustomButton text="Mis Points" route="/myPointers"></CustomButton>
+      <CustomButton text="Mis Pointers" route="/myPointers"></CustomButton>
       <CustomButton text="Crear Pointer" route="/create"></CustomButton>
       <CustomButton
         text="ingresar a un   Pointer"

@@ -9,12 +9,29 @@ export async function GET(req: NextRequest) {
     const easyCodeRef = firestore.collection("easyCode");
     const pointerRef = firestore.collection("pointers");
 
-    const pointerRealId = await easyCodeRef.doc(code).get();
-    const pointerData = pointerRealId.data() as any;
+    const easyCodeDoc = await easyCodeRef.doc(code).get();
 
-    const pointerRealData = (
-      await pointerRef.doc(pointerData.easyCode).get()
-    ).data();
+    if (!easyCodeDoc.exists) {
+      return NextResponse.json({
+        code,
+        message: "El código proporcionado no existe en la colección easyCode",
+        data: null,
+      });
+    }
+
+    const pointerData = easyCodeDoc.data() as any;
+    const pointerRealDoc = await pointerRef.doc(pointerData.easyCode).get();
+
+    if (!pointerRealDoc.exists) {
+      return NextResponse.json({
+        code,
+        message:
+          "No se encontró el puntero correspondiente en la colección pointers",
+        data: null,
+      });
+    }
+
+    const pointerRealData = pointerRealDoc.data();
 
     return NextResponse.json({
       pointerId: pointerData.easyCode,
@@ -62,5 +79,39 @@ export async function POST(req: NextRequest) {
   } catch (error) {
     console.error(error);
     return NextResponse.json({ error });
+  }
+}
+
+export async function DELETE(req: NextRequest) {
+  try {
+    const code = req.nextUrl.searchParams.get("code") as any;
+    const easyCodeRef = firestore.collection("easyCode");
+    const easyCodeDoc = await easyCodeRef.doc(code).get();
+
+    if (!easyCodeDoc.exists) {
+      return NextResponse.json({
+        code,
+        message: "El código proporcionado no existe en la colección easyCode",
+        deleted: false,
+      });
+    }
+
+    const easyCodeData = easyCodeDoc.data() as any;
+    const pointerId = easyCodeData.easyCode;
+    const pointerData = firestore.collection("pointers").doc(pointerId);
+
+    if ((await pointerData.get()).exists) {
+      await easyCodeRef.doc(code).delete();
+      await pointerData.delete();
+    }
+
+    return NextResponse.json({
+      code,
+      message: "Pointer eliminado correctamente",
+      deleted: true,
+    });
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json({});
   }
 }
