@@ -3,6 +3,7 @@ import {
   APICheckPointerCode,
   APICreatePointer,
   APICreateRealPointer,
+  APIDeletePointer,
   APIFindByCategory,
   APIGetMyPoints,
   APIGetPointInfo,
@@ -144,7 +145,6 @@ export function useFilterByCategory() {
     try {
       loaderSetter(true);
       const response = (await APIFindByCategory(code, category)) as any;
-      console.log(response.data);
       pointsSetter(response.data.points);
       loaderSetter(false);
     } catch (error) {
@@ -154,4 +154,16 @@ export function useFilterByCategory() {
   };
 
   return filter;
+}
+
+export function useDeletePointer(code: string) {
+  const setLoaderState = useSetRecoilState(loaderAtom);
+  return async () => {
+    setLoaderState(true);
+    const response = await APIDeletePointer(code);
+    if (response.data.deleted) {
+      setLoaderState(false);
+      location.reload();
+    }
+  };
 }

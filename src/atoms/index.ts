@@ -27,6 +27,16 @@ export const pointCreatedModal = atom({
   default: false,
 });
 
+export const deletePointerModalAtom = atom({
+  key: "deletePointerModalAtom",
+  default: false,
+});
+
+export const deletePointerCodeAtom = atom({
+  key: "deletePointerCodeAtom",
+  default: "",
+});
+
 export const addPointModalAtom = atom({
   key: "addPointModalAtom",
   default: false,

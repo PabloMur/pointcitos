@@ -1,5 +1,4 @@
 import axios, { AxiosResponse } from "axios";
-import { renderToHTML } from "next/dist/server/render";
 
 interface ApiResponse<T> {
   data: T | null;
@@ -87,6 +86,20 @@ export const APIFindByCategory = async (code: string, category: string) => {
       data: null,
       error,
       message: "Error al buscar por categoría",
+    };
+  }
+};
+
+export const APIDeletePointer = async (code: string) => {
+  try {
+    const response = await axios.delete(`/api/pointer?code=${code}`);
+    return { data: response.data };
+  } catch (error) {
+    console.error(error);
+    return {
+      data: null,
+      error,
+      message: "Error al intentar eliminar el pointer",
     };
   }
 };
