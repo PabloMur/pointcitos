@@ -13,7 +13,7 @@ export async function GET(req: NextRequest) {
       const ref = firestore.collection("pointers");
       const docFinal = await ref.doc(data.easyCode).get();
       const docPointerData = docFinal.data();
-      console.log({ ...data, id: doc.id, pointerData: docPointerData });
+
       myPointsData.push({
         ...data,
         id: doc.id,
